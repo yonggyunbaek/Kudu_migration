@@ -1,0 +1,25 @@
+################################################################
+# Kudu profile
+################################################################
+
+# Input Kudu Source and Destination master server hostname
+export KUDU_MASTER_SERVER_SRC=ygbaek01.gitcluster.com,ygbaek02.gitcluster.com,ygbaek03.gitcluster.com
+export KUDU_MASTER_SERVER_DST=ygbaek05.gitcluster.com,ygbaek06.gitcluster.com,ygbaek07.gitcluster.com
+
+# Base DIR
+export KUDU_SCR_DIR=/root/CDP/kudu_migration
+export KUDU_COPY_BASE=$KUDU_SCR_DIR/kudu_copy
+export KUDU_DDL_BASE=$KUDU_SCR_DIR/kudu_ddl
+
+# Impala
+export SRC_IMPALA_SHELL="impala-shell -i ygbaek02.gitcluster.com -d default"
+export DST_IMPALA_SHELL="impala-shell -i ygbaek05.gitcluster.com -d default"
+
+
+################################################################
+# Do not touch 
+################################################################
+export KUDU_META=$KUDU_DDL_BASE/meta
+export KUDU_DDL=$KUDU_DDL_BASE/ddl
+
+
