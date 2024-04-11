@@ -38,6 +38,19 @@ function fnc_remove_unused {
     sed -i "/^TBLPROPERTIES/d"    ${KUDU_DDL}/*.sql
 }
 
+
+# Modify uppercase table name
+function replace_tblname_upper {
+    cat ${KUDU_META}/kudu_table_list.list | while read LINE
+    do
+        TBL_NAME=${LINE}
+        cur=`cat ${KUDU_DDL}/${TBL_NAME}.sql | grep CREATE | awk -F" " '{print $3}'`
+        if [ ${cur} != ${TBL_NAME} ]; then
+            sed -i "/CREATE/s/${cur}/${TBL_NAME}" ${KUDU_DDL}/${TBL_NAME}.sql
+        fi
+    done
+}
+
 # Create Partition type metadata.
 function fnc_part_info {
     cat ${KUDU_META}/kudu_table_list.list | while read LINE
@@ -116,6 +129,7 @@ function fnc_rsv_word {
 fnc_list_table
 fnc_gen_ddl
 fnc_remove_unused
+replace_tblname_upper
 fnc_part_info
 fnc_get_range
 fnc_set_range
